@@ -1,0 +1,36 @@
+LIBRARY ritzcore
+
+EXPORTS
+	; バッファ
+	wpBufferCreate
+	wpBufferDelete
+	wpBufferClear
+	wpBufferSetPlayable
+	wpBufferGetPointer
+	wpBufferWait
+	wpBufferSetData
+	wpBufferCopy
+	wpBufferEnqueue
+
+	; PLAYER
+	wpPlayerOpen
+	wpPlayerClose
+
+	; FILTER
+	filter_create
+	filter_delete
+	filter_set_fir_coeffs
+	filter_apply
+
+	;
+	mod_update
+	mod_mixto
+	mod_clock_forward
+	mod_set_gain
+	mod_get_gain
+
+	mod_create
+	mod_shutdown
+	mod_reset
+	mod_read
+	mod_write

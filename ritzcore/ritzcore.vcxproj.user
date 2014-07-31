@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LocalDebuggerCommand>C:\apps\pypy\pypy.exe</LocalDebuggerCommand>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LocalDebuggerCommand>C:\Python34\python.exe</LocalDebuggerCommand>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LocalDebuggerCommandArguments>pp.py</LocalDebuggerCommandArguments>
+    <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
+    <LocalDebuggerWorkingDirectory>D:\projects\ritz\</LocalDebuggerWorkingDirectory>
+    <ShowAllFiles>false</ShowAllFiles>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LocalDebuggerCommandArguments>rmp.py</LocalDebuggerCommandArguments>
+    <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
+    <LocalDebuggerWorkingDirectory>D:\projects\ritz\ritz</LocalDebuggerWorkingDirectory>
+    <ShowAllFiles>false</ShowAllFiles>
+    <LocalDebuggerAttach>false</LocalDebuggerAttach>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LocalDebuggerCommand>C:\Python34\python.exe</LocalDebuggerCommand>
+    <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
+    <LocalDebuggerCommandArguments>rmp.py</LocalDebuggerCommandArguments>
+    <LocalDebuggerWorkingDirectory>D:\projects\ritz\ritz</LocalDebuggerWorkingDirectory>
+  </PropertyGroup>
+</Project>
