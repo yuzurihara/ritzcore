@@ -440,11 +440,13 @@ EXTERN_C void  RITZAPI mod_mixto(void *handle, HSNDBUF hsndbuf, float gain){
 	// chipのトラックから再生バッファへミックスする
 	soundbox *box = (soundbox*)handle;
 	SoundBuffer *sndbuf = (SoundBuffer*)hsndbuf;
-
+	int ntracks;
 	_mm_prefetch((const CHAR*)sndbuf->buf, _MM_HINT_T0);
-	for(int t=0; t<box->get_ntracks(); t++){
+	ntracks = box->get_ntracks();
+
+	if(ntracks==1){ // MONO
 		register RITZSAMP *ptr = sndbuf->buf;
-		chiptrack *trk = box->get_track(t);
+		chiptrack *trk = box->get_track(0);
 		RITZSAMP *src = trk->get_pointer();
 		_mm_prefetch((const CHAR*)src, _MM_HINT_T2);
 		float gain_l = trk->get_gain_l();
@@ -456,7 +458,26 @@ EXTERN_C void  RITZAPI mod_mixto(void *handle, HSNDBUF hsndbuf, float gain){
 			*(ptr++) += (RITZSAMP)(data * gain_r);
 		}
 		sndbuf->effective_samples = trk->get_effective_samples() * 2;//ステレオだから*2
-		_mm_clflush(trk->get_pointer());
+	} else { // STEREO
+		for(int t=0; t<box->get_ntracks(); t++){
+			register RITZSAMP *ptr = sndbuf->buf;
+			chiptrack *trk = box->get_track(t);
+			RITZSAMP *src = trk->get_pointer();
+			_mm_prefetch((const CHAR*)src, _MM_HINT_T2);
+			float gain_l = trk->get_gain_l();
+			float gain_r = trk->get_gain_r();
+			size_t width = trk->get_effective_samples();
+			for(size_t x=0; x<width; x++){
+				RITZSAMP data = *(src++);
+				RITZSAMP data_l, data_r;
+				data_l = data_r = data;
+				if(t==0) data_r = 0;
+				if(t==1) data_l = 0;
+				*(ptr++) += (RITZSAMP)(data_l * gain_l);
+				*(ptr++) += (RITZSAMP)(data_r * gain_r);
+			}
+			sndbuf->effective_samples = trk->get_effective_samples() * 2;//ステレオだから*2
+		}
 	}
 }
 
