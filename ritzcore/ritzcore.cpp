@@ -444,13 +444,20 @@ EXTERN_C void  RITZAPI mod_mixto(void *handle, HSNDBUF hsndbuf, float gain){
 	_mm_prefetch((const CHAR*)sndbuf->buf, _MM_HINT_T0);
 	ntracks = box->get_ntracks();
 
+	// gain limiter
+	if(gain<-3.0f){
+		gain = -3.0f;
+	}else if(3.0f<gain){
+		gain = 3.0f;
+	}
+
 	if(ntracks==1){ // MONO
 		register RITZSAMP *ptr = sndbuf->buf;
 		chiptrack *trk = box->get_track(0);
 		RITZSAMP *src = trk->get_pointer();
 		_mm_prefetch((const CHAR*)src, _MM_HINT_T2);
-		float gain_l = trk->get_gain_l();
-		float gain_r = trk->get_gain_r();
+		float gain_l = trk->get_gain_l() * gain;
+		float gain_r = trk->get_gain_r() * gain;
 		size_t width = trk->get_effective_samples();
 		for(size_t x=0; x<width; x++){
 			RITZSAMP data = *(src++);
@@ -464,8 +471,8 @@ EXTERN_C void  RITZAPI mod_mixto(void *handle, HSNDBUF hsndbuf, float gain){
 			chiptrack *trk = box->get_track(t);
 			RITZSAMP *src = trk->get_pointer();
 			_mm_prefetch((const CHAR*)src, _MM_HINT_T2);
-			float gain_l = trk->get_gain_l();
-			float gain_r = trk->get_gain_r();
+			float gain_l = trk->get_gain_l() * gain;
+			float gain_r = trk->get_gain_r() * gain;
 			size_t width = trk->get_effective_samples();
 			for(size_t x=0; x<width; x++){
 				RITZSAMP data = *(src++);
