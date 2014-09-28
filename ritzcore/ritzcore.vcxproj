@@ -69,6 +69,9 @@
   <ItemGroup>
     <None Include="ritzcore.def" />
   </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="ritzcore.rc" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{FDA122CF-8F4F-47F9-8907-2571C7C76FFC}</ProjectGuid>
     <RootNamespace>ritzcore</RootNamespace>
@@ -212,6 +215,9 @@
       <MapFileName>ritzcore.map</MapFileName>
       <LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
     </Link>
+    <ResourceCompile>
+      <Culture>0x0411</Culture>
+    </ResourceCompile>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
