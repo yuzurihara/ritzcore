@@ -450,41 +450,22 @@ EXTERN_C void  RITZAPI mod_mixto(void *handle, HSNDBUF hsndbuf, float gain){
 	}else if(3.0f<gain){
 		gain = 3.0f;
 	}
-
-	if(ntracks==1){ // MONO
+	// mix
+	for(int t=0; t<box->get_ntracks(); t++){
 		register RITZSAMP *ptr = sndbuf->buf;
-		chiptrack *trk = box->get_track(0);
+		chiptrack *trk = box->get_track(t);
 		RITZSAMP *src = trk->get_pointer();
-		_mm_prefetch((const CHAR*)src, _MM_HINT_T2);
 		float gain_l = trk->get_gain_l() * gain;
 		float gain_r = trk->get_gain_r() * gain;
 		size_t width = trk->get_effective_samples();
 		for(size_t x=0; x<width; x++){
 			RITZSAMP data = *(src++);
-			*(ptr++) += (RITZSAMP)(data * gain_l);
-			*(ptr++) += (RITZSAMP)(data * gain_r);
+			RITZSAMP data_l, data_r;
+			data_l = data_r = data;
+			*(ptr++) += (RITZSAMP)(data_l * gain_l);
+			*(ptr++) += (RITZSAMP)(data_r * gain_r);
 		}
-		sndbuf->effective_samples = trk->get_effective_samples() * 2;//ステレオだから*2
-	} else { // STEREO
-		for(int t=0; t<box->get_ntracks(); t++){
-			register RITZSAMP *ptr = sndbuf->buf;
-			chiptrack *trk = box->get_track(t);
-			RITZSAMP *src = trk->get_pointer();
-			_mm_prefetch((const CHAR*)src, _MM_HINT_T2);
-			float gain_l = trk->get_gain_l() * gain;
-			float gain_r = trk->get_gain_r() * gain;
-			size_t width = trk->get_effective_samples();
-			for(size_t x=0; x<width; x++){
-				RITZSAMP data = *(src++);
-				RITZSAMP data_l, data_r;
-				data_l = data_r = data;
-				if(t==0) data_r = 0;
-				if(t==1) data_l = 0;
-				*(ptr++) += (RITZSAMP)(data_l * gain_l);
-				*(ptr++) += (RITZSAMP)(data_r * gain_r);
-			}
-			sndbuf->effective_samples = trk->get_effective_samples() * 2;//ステレオだから*2
-		}
+		sndbuf->effective_samples = width * 2;//ステレオだから*2
 	}
 }
 
@@ -660,6 +641,12 @@ void* ritz_ym2151_init(int clock, int rate){
 	device_t *device = new ym2151_device(NULL, NULL, NULL, clock);
 	box = new box_ym2151(device, clock, rate);
 	box->device->start();
+	// トラックのパン設定
+	chiptrack* t1 = box->get_track(0);
+	chiptrack* t2 = box->get_track(1);
+	t1->setPan(-1.0f);
+	t2->setPan(+1.0f);
+
 	return (void*)box;
 }
 
@@ -689,6 +676,13 @@ void* ritz_ym2413_init(int clock, int rate){
 	box_opll *box;
 	device_t *device = new ym2413_device(NULL, NULL, NULL, clock);
 	box = new box_opll(device, clock, rate);
+
+	// トラックのパン設定
+	chiptrack* t1 = box->get_track(0);
+	chiptrack* t2 = box->get_track(1);
+	t1->setPan(0);
+	t2->setPan(0);
+
 	box->device->start();
 	return (void*)box;
 }
