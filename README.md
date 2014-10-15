@@ -3,6 +3,9 @@ ritzcore
 
 soundchip library.
 
+ritzcore wikiã‚‚ã”è¦§ãã ã•ã„ã€‚
+https://github.com/yuzurihara/ritzcore/wiki
+
 ## build environment
 
 Microsoft Visual Studio 2010
@@ -10,15 +13,15 @@ Version 10.0.40219.1 SP1Rel
 Microsoft .NET Framework
 Version 4.5.50938 SP1Rel
 
-ƒCƒ“ƒXƒg[ƒ‹‚³‚ê‚Ä‚¢‚éƒo[ƒWƒ‡ƒ“: VC Express
+ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«ã•ã‚Œã¦ã„ã‚‹ãƒãƒ¼ã‚¸ãƒ§ãƒ³: VC Express
 
 Microsoft Visual C++ 2010   01013-169-2610014-70924
 Microsoft Visual C++ 2010
 
-Hotfix for Microsoft Visual C++ 2010 Express - “ú–{Œê (KB2542054)   KB2542054
+Hotfix for Microsoft Visual C++ 2010 Express - æ—¥æœ¬èª (KB2542054)   KB2542054
 
-Microsoft Visual C++ 2010 Express - “ú–{Œê (KB2565057) —p‚ÌC³ƒvƒƒOƒ‰ƒ€   KB2565057
+Microsoft Visual C++ 2010 Express - æ—¥æœ¬èª (KB2565057) ç”¨ã®ä¿®æ­£ãƒ—ãƒ­ã‚°ãƒ©ãƒ    KB2565057
 
-Microsoft Visual C++ 2010 Express - “ú–{Œê (KB2635973) —p‚ÌC³ƒvƒƒOƒ‰ƒ€   KB2635973
+Microsoft Visual C++ 2010 Express - æ—¥æœ¬èª (KB2635973) ç”¨ã®ä¿®æ­£ãƒ—ãƒ­ã‚°ãƒ©ãƒ    KB2635973
 
-Microsoft Visual C++ 2010 Express - “ú–{Œê Service Pack 1 (KB983509)   KB983509
+Microsoft Visual C++ 2010 Express - æ—¥æœ¬èª Service Pack 1 (KB983509)   KB983509
